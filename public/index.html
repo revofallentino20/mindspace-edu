@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindSpace Edu — Digitalizing Student Well-being for a Better Future</title>
+<meta name="description" content="Platform SaaS kesehatan mental siswa yang menghubungkan siswa dan unit BK secara digital, anonim, dan berbasis data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-50:  #EAF3DE;
+    --green-100: #C0DD97;
+    --green-200: #97C459;
+    --green-400: #639922;
+    --green-600: #3B6D11;
+    --green-800: #27500A;
+    --green-900: #173404;
+
+    --teal-50:  #E1F5EE;
+    --teal-100: #9FE1CB;
+    --teal-200: #5DCAA5;
+    --teal-400: #1D9E75;
+    --teal-600: #0F6E56;
+    --teal-800: #085041;
+    --teal-900: #04342C;
+
+    --blue-50:  #E6F1FB;
+    --blue-100: #B5D4F4;
+    --blue-400: #378ADD;
+    --blue-600: #185FA5;
+    --blue-800: #0C447C;
+
+    --gray-50:  #F1EFE8;
+    --gray-100: #D3D1C7;
+    --gray-200: #B4B2A9;
+    --gray-400: #888780;
+    --gray-600: #5F5E5A;
+    --gray-800: #444441;
+    --gray-900: #2C2C2A;
+
+    --coral-50:  #FAECE7;
+    --coral-400: #D85A30;
+    --coral-800: #712B13;
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: #fff;
+    color: var(--gray-900);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 5%;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--green-50);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--font-display); font-size: 1.3rem; font-weight: 500;
+    color: var(--teal-800); text-decoration: none;
+  }
+  .nav-logo .dot { color: var(--green-400); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.9rem; font-weight: 500;
+    color: var(--gray-600);
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--teal-600); }
+  .nav-cta {
+    background: var(--teal-600); color: #fff;
+    padding: .55rem 1.4rem; border-radius: 100px;
+    text-decoration: none; font-size: 0.88rem; font-weight: 600;
+    transition: background .2s, transform .15s;
+  }
+  .nav-cta:hover { background: var(--teal-800); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 7rem 5% 4rem;
+    position: relative;
+    overflow: visible;
+    background: linear-gradient(160deg, #fff 0%, var(--teal-50) 60%, var(--green-50) 100%);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 520px; height: 520px; border-radius: 50%;
+    background: radial-gradient(circle, var(--teal-50) 0%, transparent 70%);
+    opacity: .7;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -60px; left: 10%;
+    width: 340px; height: 340px; border-radius: 50%;
+    background: radial-gradient(circle, var(--green-50) 0%, transparent 70%);
+    opacity: .9;
+  }
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    position: relative; z-index: 1;
+    width: 100%;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--teal-50); color: var(--teal-600);
+    border: 1px solid var(--teal-100); border-radius: 100px;
+    padding: .3rem .9rem; font-size: .78rem; font-weight: 600;
+    margin-bottom: 1.5rem; letter-spacing: .04em;
+  }
+  .badge .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--teal-400); display: inline-block;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .5; transform: scale(1.3); }
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+    font-weight: 500; line-height: 1.2;
+    color: var(--gray-900);
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--teal-600); }
+  .hero p {
+    font-size: 1.05rem; color: var(--gray-600);
+    line-height: 1.75; max-width: 480px;
+    margin-bottom: 2rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; flex-direction: column; max-width: 280px; }
+  .btn-primary {
+    background: var(--teal-600); color: #fff;
+    padding: .85rem 2rem; border-radius: 100px;
+    text-decoration: none; font-weight: 700; font-size: .95rem;
+    transition: background .2s, transform .15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--teal-800); transform: translateY(-2px); }
+  .btn-secondary {
+    background: transparent; color: var(--teal-700);
+    padding: .85rem 1.75rem; border-radius: 100px;
+    border: 1.5px solid var(--teal-200);
+    text-decoration: none; font-weight: 600; font-size: .95rem;
+    transition: all .2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover { background: var(--teal-50); border-color: var(--teal-400); }
+
+  .hero-visual {
+    position: relative;
+    display: flex; justify-content: center; align-items: center;
+    overflow: visible;
+    padding: 20px 40px 20px 20px;
+}
+
+  /* floating dashboard card */
+  .dashboard-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 20px 60px rgba(15,110,86,.12), 0 4px 16px rgba(0,0,0,.06);
+    width: 100%; max-width: 380px;
+    position: relative; z-index: 2;
+    animation: floatY 4s ease-in-out infinite;
+  }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .dc-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+  .dc-title { font-weight: 700; font-size: .9rem; color: var(--gray-900); }
+  .dc-badge {
+    background: var(--teal-50); color: var(--teal-600);
+    font-size: .72rem; font-weight: 600;
+    padding: .2rem .65rem; border-radius: 100px;
+  }
+  .dc-stats {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .75rem;
+    margin-bottom: 1.25rem;
+  }
+  .stat-box {
+    background: var(--gray-50); border-radius: 12px;
+    padding: .75rem .6rem; text-align: center;
+  }
+  .stat-num { font-size: 1.3rem; font-weight: 800; color: var(--teal-600); }
+  .stat-lbl { font-size: .68rem; color: var(--gray-400); margin-top: 2px; }
+  .bar-chart { display: flex; gap: 6px; align-items: flex-end; height: 70px; margin-bottom: 1rem; }
+  .bar {
+    flex: 1; border-radius: 4px 4px 0 0;
+    background: var(--teal-100);
+    transition: height .3s;
+  }
+  .bar.active { background: var(--teal-400); }
+  .dc-footer { display: flex; gap: .5rem; }
+  .tag {
+    font-size: .7rem; font-weight: 600; padding: .25rem .6rem; border-radius: 100px;
+  }
+  .tag.stress { background: #FEF3C7; color: #92400E; }
+  .tag.anxiety { background: var(--teal-50); color: var(--teal-600); }
+  .tag.ok { background: var(--green-50); color: var(--green-800); }
+
+  /* floating mini card */
+  .mini-card {
+    position: absolute;
+    background: #fff; border-radius: 14px;
+    padding: .75rem 1rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,.1);
+    display: flex; align-items: center; gap: .75rem;
+    font-size: .75rem; font-weightoke : 600; color: var(--gray-900);
+    white-space: nowrap;
+    animation: floatY 4s ease-in-out infinite;
+  }
+  .mini-card.mc1 { bottom: -45px; left: 0px; animation-delay: -1.2s; }
+  .mini-card.mc2 { top: -45px; right: 0px; animation-delay: -2.5s; }
+  .mc-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .mc-icon.green { background: var(--green-50); }
+  .mc-icon.blue  { background: var(--blue-50);  }
+
+  /* ── PAS SECTION ── */
+  .pas-section {
+    background: var(--gray-900);
+    padding: 5rem 5%;
+    position: relative; overflow: hidden;
+  }
+  .pas-section::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      -45deg, transparent, transparent 40px,
+      rgba(255,255,255,.015) 40px, rgba(255,255,255,.015) 41px
+    );
+  }
+  .pas-inner {
+    max-width: 900px; margin: 0 auto; position: relative; z-index: 1;
+    text-align: center;
+  }
+  .section-eyebrow {
+    font-size: .78rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--teal-200); margin-bottom: 1rem;
+  }
+  .pas-section h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 400; color: #fff; line-height: 1.3;
+    margin-bottom: 1.5rem;
+  }
+  .pas-section h2 em { font-style: italic; color: var(--teal-200); }
+  .pas-blocks {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem;
+    margin-top: 3.5rem; text-align: left;
+  }
+  .pas-block {
+    padding: 2rem 1.75rem; border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.08);
+  }
+  .pas-block.problem { background: rgba(216,90,48,.1); }
+  .pas-block.agitate  { background: rgba(186,117,23,.07); }
+  .pas-block.solution { background: rgba(29,158,117,.1); border-color: rgba(29,158,117,.2); }
+  .pas-label {
+    font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; margin-bottom: 1rem; display: block;
+  }
+  .problem .pas-label { color: var(--coral-400); }
+  .agitate  .pas-label { color: #EF9F27; }
+  .solution .pas-label { color: var(--teal-200); }
+  .pas-block p { color: rgba(255,255,255,.75); font-size: .95rem; line-height: 1.75; }
+  .pas-block strong { color: #fff; }
+
+  /* ── FEATURES ── */
+  .features {
+    padding: 5.5rem 5%;
+    background: #fff;
+  }
+  .features-inner { max-width: 1200px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 500; color: var(--gray-900);
+    line-height: 1.3; margin-bottom: .75rem;
+  }
+  .section-header h2 em { font-style: italic; color: var(--teal-600); }
+  .section-header p { color: var(--gray-400); font-size: 1rem; max-width: 520px; margin: 0 auto; }
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .feature-card {
+    padding: 2rem 1.75rem; border-radius: 20px;
+    border: 1px solid var(--gray-50);
+    transition: transform .25s, box-shadow .25s;
+    position: relative; overflow: hidden;
+    background: #fff;
+  }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(15,110,86,.1);
+  }
+  .feature-card.featured {
+    background: #fff;
+    border-color: var(--gray-50);
+    border-width: 1px;
+}
+  .feature-card.featured h3 { color: var(--gray-900) |important; }
+  .feature-card.featured p { color: var(--gray-400) |important; }
+  .feat-tag.white { background: var(--teal-50); color: var(--teal-600); }
+  .feat-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 1.25rem;
+  }
+  .feat-icon.teal { background: var(--teal-50); }
+  .feat-icon.green { background: var(--green-50); }
+  .feat-icon.blue  { background: var(--blue-50);  }
+  .feat-icon.white { background: var(--teal-50); }
+  .feature-card h3 {
+    font-size: 1.05rem; font-weight: 700; color: var(--gray-900);
+    margin-bottom: .6rem;
+  }
+  .feature-card p { font-size: .9rem; color: var(--gray-400); line-height: 1.7; }
+  .feat-tag {
+    display: inline-block; margin-top: 1.25rem;
+    font-size: .72rem; font-weight: 700; letter-spacing: .05em;
+    padding: .28rem .75rem; border-radius: 100px;
+  }
+  .feat-tag.teal { background: var(--teal-50); color: var(--teal-600); }
+  .feat-tag.green { background: var(--green-50); color: var(--green-800); }
+  .feat-tag.blue  { background: var(--blue-50);  color: var(--blue-800);  }
+  .feat-tag.white { background: rgba(255,255,255,.15); color: rgba(255,255,255,.9); }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    padding: 5.5rem 5%;
+    background: var(--teal-50);
+  }
+  .how-inner { max-width: 1100px; margin: 0 auto; }
+  .steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+    margin-top: 3.5rem; position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute; top: 30px; left: 10%; right: 10%;
+    height: 2px; background: var(--teal-100);
+    z-index: 0;
+  }
+  .step { text-align: center; position: relative; z-index: 1; }
+  .step-num {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: #fff; border: 2px solid var(--teal-200);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.25rem;
+    font-family: var(--font-display); font-size: 1.4rem;
+    font-weight: 500; color: var(--teal-600);
+    position: relative;
+  }
+  .step-num.active {
+    background: var(--teal-600); border-color: var(--teal-600);
+    color: #fff; box-shadow: 0 0 0 8px rgba(15,110,86,.12);
+  }
+  .step p { font-size: .8rem; color: var(--gray-600); line-height: 1.6; }
+  .step h4 { font-size: .9rem; font-weight: 700; color: var(--gray-900); margin-bottom: .4rem; }
+  
+  /* ── SEGMENT / TARGET ── */
+  .segment {
+    padding: 5.5rem 5%; background: #fff;
+  }
+  .segment-inner { max-width: 1100px; margin: 0 auto; }
+  .segment-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3.5rem;
+  }
+  .seg-card {
+    padding: 2.25rem; border-radius: 20px;
+    border: 1px solid var(--gray-50);
+    background: var(--gray-50);
+  }
+  .seg-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--gray-900); margin: 1rem 0 .5rem; }
+  .seg-card p  { font-size: .9rem; color: var(--gray-600); line-height: 1.7; }
+  .seg-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+    background: var(--teal-50);
+  }
+  .seg-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+  .seg-tag {
+    font-size: .75rem; font-weight: 600; padding: .25rem .7rem; border-radius: 100px;
+    background: #fff; color: var(--gray-600); border: 1px solid var(--gray-100);
+  }
+
+  /* ── STATS ── */
+  .stats {
+    background: var(--teal-800);
+    padding: 4rem 5%;
+  }
+  .stats-inner {
+    max-width: 1000px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center;
+  }
+  .stat-item {}
+  .stat-item .num {
+    font-family: var(--font-display);
+    font-size: 2.8rem; font-weight: 300; color: #fff;
+    line-height: 1;
+  }
+  .stat-item .unit { font-size: 1.2rem; color: var(--teal-200); }
+  .stat-item p { font-size: .85rem; color: rgba(255,255,255,.6); margin-top: .4rem; }
+
+  /* ── CTA ── */
+  .cta {
+    padding: 6rem 5%;
+    background: linear-gradient(135deg, var(--green-50) 0%, var(--teal-50) 100%);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta::before {
+    content: '';
+    position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(29,158,117,.08) 0%, transparent 70%);
+  }
+  .cta-inner { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+  .cta h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 500; color: var(--gray-900); line-height: 1.25; margin-bottom: 1rem;
+  }
+  .cta h2 em { font-style: italic; color: var(--teal-600); }
+  .cta p { color: var(--gray-600); font-size: 1.05rem; margin-bottom: 2.5rem; }
+  .cta-form {
+    display: flex; gap: .75rem; max-width: 480px; margin: 0 auto;
+  }
+  .cta-form input {
+    flex: 1; padding: .85rem 1.25rem; border-radius: 100px;
+    border: 1.5px solid var(--teal-100); font-size: .9rem;
+    font-family: var(--font-body); outline: none;
+    transition: border-color .2s;
+  }
+  .cta-form button {
+    background: var(--teal-600); color: #fff;
+    padding: .85rem 2rem; border-radius: 100px;
+    border: none; cursor: pointer;
+    font-weight: 700; font-size: .95rem;
+    font-family: var(--font-body);
+    transition: background .2s, transform .15s;
+    display: inline-flex; align-items: center; gap: 8px;
+    white-space: nowrap;
+  }
+  .cta-form button:hover { background: var(--teal-800); transform: translateY(-2px); }
+  .cta-form input:focus { border-color: var(--teal-400); }
+  .cta-note { margin-top: 1rem; font-size: .8rem; color: var(--gray-400); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--gray-900); color: rgba(255,255,255,.5);
+    padding: 2.5rem 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo {
+    font-family: var(--font-display); font-size: 1.1rem;
+    color: #fff; font-weight: 500;
+  }
+  .footer-logo span { color: var(--teal-400); }
+  footer p { font-size: .82rem; }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { color: rgba(255,255,255,.4); text-decoration: none; font-size: .82rem; }
+  .footer-links a:hover { color: var(--teal-200); }
+
+  .nav-login {
+    background: transparent;
+    color: var(--teal-600);
+    padding: .55rem 1.2rem;
+    border-radius: 100px;
+    border: 1.5px solid var(--teal-200);
+    text-decoration: none;
+    font-size: .88rem;
+    font-weight: 600;
+    transition: all .2s;
+  }
+  .nav-login:hover { background: var(--teal-50); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: .65rem 4%; gap: .5rem; }
+    .nav-logo { font-size: 1.1rem; }
+    .nav-links { display: none; }
+    .nav-cta { padding: .4rem .9rem; font-size: .78rem; }
+    .nav-login { display: none; }
+    .hero-btns { 
+        justify-content: center; 
+        flex-direction: column; 
+        align-items: center; 
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .hero-btns a { 
+        width: 100%; 
+        max-width: 300px; 
+        justify-content: center;
+        text-align: center;
+    }
+    /* Login Admin button mobile */
+    nav > div { gap: .4rem !important; }
+    nav > div a:first-child { padding: .4rem .9rem !important; font-size: .78rem !important; }
+
+    .hero { padding: 6rem 5% 3rem; }
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    .hero h1 { font-size: 2rem; }
+    .hero p { margin-left: auto; margin-right: auto; }
+    .hero-btns { justify-content: center; flex-direction: column; align-items: center; width: 100%; }
+    .hero-btns a { width: 100%; max-width: 320px; justify-content: center; }
+    .hero-visual { display: none; }
+
+    .pas-blocks { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .steps::before { display: none; }
+    .segment-grid { grid-template-columns: 1fr; }
+    .stats-inner { grid-template-columns: 1fr 1fr; }
+    .cta-form { flex-direction: column; }
+    .cta-form input { border-radius: 12px; }
+    .cta-form .btn-primary { border-radius: 12px; justify-content: center; }
+    footer { flex-direction: column; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+
+  /* scroll animations */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s, transform .6s; }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero-top" class="nav-logo">MindSpace<span class="dot">.</span>Edu</a>
+  <ul class="nav-links">
+    <li><a href="#fitur">Fitur</a></li>
+    <li><a href="#cara-kerja">Cara Kerja</a></li>
+    <li><a href="#segmen">Target</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+  </ul>
+  <div style="display:flex; gap:.75rem; align-items:center;">
+  <a href="/login" class="nav-login">Login Admin</a>
+  <a href="#kontak" class="nav-cta">Mulai Gratis →</a>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero-top">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="badge"><span class="pulse"></span> Platform SaaS Kesehatan Mental Siswa</div>
+      <h1>Wujudkan Kesehatan Mental Siswa untuk <em>Masa Depan yang Lebih Baik</em></h1>
+      <p>MindSpace Edu menjembatani komunikasi antara siswa dan unit BK secara anonim, aman, dan berbasis data — tanpa stigma, tanpa rasa takut.</p>
+      <div class="hero-btns">
+        <a href="#kontak" class="btn-primary">Jadwalkan Demo ✦</a>
+        <a href="#fitur" class="btn-secondary">Lihat Fitur →</a>
+        <a href="/screening" class="btn-secondary" style="border-color:var(--teal-400); color:var(--teal-600);">Isi Screening Gratis</a>
+      </div>
+    </div>
+
+    <!-- floating dashboard -->
+    <div class="hero-visual">
+      <div class="mini-card mc2">
+        <div class="mc-icon blue">🔒</div>
+        Anonim & Terenkripsi
+      </div>
+
+      <div class="dashboard-card">
+        <div class="dc-header">
+          <span class="dc-title">Dashboard BK — SMA N 1</span>
+          <span class="dc-badge">Live</span>
+        </div>
+        <div class="dc-stats">
+          <div class="stat-box">
+            <div class="stat-num">312</div>
+            <div class="stat-lbl">Respons</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num" style="color:#639922;">78%</div>
+            <div class="stat-lbl">Sehat</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num" style="color:#D85A30;">22%</div>
+            <div class="stat-lbl">Perlu BK</div>
+          </div>
+        </div>
+        <div class="bar-chart">
+          <div class="bar" style="height:45%"></div>
+          <div class="bar" style="height:60%"></div>
+          <div class="bar active" style="height:80%"></div>
+          <div class="bar" style="height:55%"></div>
+          <div class="bar" style="height:70%"></div>
+          <div class="bar active" style="height:90%"></div>
+          <div class="bar" style="height:65%"></div>
+        </div>
+        <div class="dc-footer">
+          <span class="tag stress">Stres Ujian 18%</span>
+          <span class="tag anxiety">Cemas 4%</span>
+          <span class="tag ok">OK 78%</span>
+        </div>
+      </div>
+
+      <div class="mini-card mc1">
+        <div class="mc-icon green">📅</div>
+        Konsultasi Terjadwal
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAS COPYWRITING -->
+<section class="pas-section">
+  <div class="pas-inner">
+    <p class="section-eyebrow">Mengapa MindSpace Edu?</p>
+    <h2>Banyak siswa memendam stres<br>karena takut <em>stigma ruang BK</em></h2>
+    <div class="pas-blocks">
+      <div class="pas-block problem reveal">
+        <span class="pas-label">⚠ Problem</span>
+        <p>Tahukah Anda bahwa banyak siswa <strong>memendam stres dan depresi</strong> karena takut akan stigma saat harus masuk ke ruang BK? Di sisi lain, Guru BK kewalahan mengurus rekam medis bimbingan yang masih <strong>manual menggunakan kertas</strong>.</p>
+      </div>
+      <div class="pas-block agitate reveal">
+        <span class="pas-label">🔥 Dampaknya</span>
+        <p>Jika dibiarkan, sekolah <strong>tidak akan mengetahui kondisi nyata</strong> kesehatan mental kolektif siswanya. Mengambil kebijakan hanya bermodal asumsi tanpa data bisa berakibat fatal pada <strong>penurunan prestasi akademik secara massal</strong>, terutama saat musim ujian.</p>
+      </div>
+      <div class="pas-block solution reveal">
+        <span class="pas-label">✦ Solusinya</span>
+        <p>Hadir <strong>MindSpace Edu</strong> — platform SaaS yang menjembatani siswa dan unit BK. Melalui <strong>Mental Health Screening anonim</strong>, siswa jujur tanpa rasa takut. Data dienkripsi menjadi <strong>Analytic Dashboard</strong> berbasis data untuk kebijakan sekolah yang tepat sasaran.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="fitur">
+  <div class="features-inner">
+    <div class="section-header reveal">
+      <p class="section-eyebrow" style="color:var(--teal-400);">Fitur Unggulan</p>
+      <h2>Semua yang dibutuhkan sekolah<br>dalam satu <em>platform terintegrasi</em></h2>
+      <p>Dirancang khusus untuk kebutuhan institusi pendidikan Indonesia — dari SMP hingga Perguruan Tinggi.</p>
+    </div>
+    <div class="features-grid">
+    <div class="feature-card reveal">
+        <div class="feat-icon teal">🛡️</div>
+        <h3>Mental Health Screening Anonim</h3>
+        <p>Siswa mengisi kuesioner kesehatan mental secara berkala. Algoritma memberikan skor indikasi awal stres, kecemasan, atau depresi — tanpa identitas terungkap.</p>
+        <span class="feat-tag teal">Privasi Terjamin</span>
+    </div>
+    <div class="feature-card featured reveal">
+        <div class="feat-icon white">📊</div>
+        <h3 style="color:#1a1a1a;">Analytic Dashboard untuk BK</h3>
+        <p style="color:#555;">Data siswa dienkripsi dan disajikan sebagai tren statistik. Guru BK dapat melihat "kesehatan mental kolektif" dan menentukan langkah intervensi yang tepat berbasis data nyata.</p>
+        <span class="feat-tag white">⭐ Fitur Utama</span>
+    </div>
+    <div class="feature-card reveal">
+        <div class="feat-icon green">📅</div>
+        <h3>Smart Appointment System</h3>
+        <p>Siswa yang membutuhkan bantuan profesional dapat memesan jadwal konsultasi tatap muka atau daring langsung melalui aplikasi secara mudah dan terjadwal.</p>
+        <span class="feat-tag green">Tatap Muka & Daring</span>
+    </div>
+    <div class="feature-card reveal">
+        <div class="feat-icon blue">🔒</div>
+        <h3>Enkripsi Data End-to-End</h3>
+        <p>Seluruh data siswa terenkripsi penuh. Hanya Guru BK yang berwenang dapat mengakses laporan, menjamin keamanan dan kepercayaan semua pihak.</p>
+        <span class="feat-tag blue">Keamanan Tinggi</span>
+    </div>
+    <div class="feature-card reveal">
+        <div class="feat-icon teal">☁️</div>
+        <h3>Cloud-Based, Tanpa Instalasi</h3>
+        <p>Sebagai platform SaaS, sekolah tidak perlu mengurus infrastruktur server sendiri. Cukup berlangganan dan langsung gunakan — hemat biaya dan mudah diimplementasikan.</p>
+        <span class="feat-tag teal">SaaS Ready</span>
+    </div>
+    <div class="feature-card reveal">
+        <div class="feat-icon green">📈</div>
+        <h3>Rekam Medis Digital Tersentralisasi</h3>
+        <p>Digitalisasi rekam medis bimbingan konseling yang sebelumnya manual (kertas) menjadi sistem digital yang aman, terorganisir, dan mudah diakses kapan saja.</p>
+        <span class="feat-tag green">Data-Driven Policy</span>
+    </div>
+</div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="cara-kerja">
+  <div class="how-inner">
+    <div class="section-header reveal">
+      <p class="section-eyebrow" style="color:var(--teal-600);">Cara Kerja</p>
+      <h2>Mulai dalam <em>4 langkah mudah</em></h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <h4>Institusi Berlangganan</h4>
+        <p>Kepala Sekolah atau Admin mendaftarkan institusi dan memilih paket layanan yang sesuai.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num active">2</div>
+        <h4>Siswa Mengisi Screening</h4>
+        <p>Siswa mengakses kuesioner anonim secara berkala melalui web atau aplikasi mobile.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <h4>BK Analisis Dashboard</h4>
+        <p>Guru BK membaca tren data, mengidentifikasi siswa berisiko, dan merencanakan intervensi.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <h4>Kebijakan Berbasis Data</h4>
+        <p>Sekolah mengambil keputusan strategis berdasarkan data nyata, bukan asumsi semata.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEGMENTASI -->
+<section class="segment" id="segmen">
+  <div class="segment-inner">
+    <div class="section-header reveal">
+      <p class="section-eyebrow" style="color:var(--teal-400);">Segmentasi Pasar</p>
+      <h2>Dirancang untuk <em>semua pihak</em> di ekosistem pendidikan</h2>
+    </div>
+    <div class="segment-grid">
+      <div class="seg-card reveal">
+        <div class="seg-icon">🏫</div>
+        <h3>Institusi Pendidikan (B2B)</h3>
+        <p>Target pembeli utama: SMP, SMA, dan Perguruan Tinggi. Pembuat keputusan adalah Kepala Sekolah, Rektor, atau Kepala Departemen BK yang ingin meningkatkan efisiensi operasional dan kesejahteraan siswa.</p>
+        <div class="seg-tags">
+          <span class="seg-tag">SMP & SMA</span>
+          <span class="seg-tag">Perguruan Tinggi</span>
+          <span class="seg-tag">Data-Driven</span>
+          <span class="seg-tag">Cloud-Based</span>
+        </div>
+      </div>
+      <div class="seg-card reveal">
+        <div class="seg-icon">👩‍🏫</div>
+        <h3>Guru BK / Konselor</h3>
+        <p>Pengguna utama platform — konselor sekolah yang selama ini kewalahan dengan administrasi manual. MindSpace Edu membebaskan mereka untuk fokus pada hal yang benar-benar penting: membantu siswa.</p>
+        <div class="seg-tags">
+          <span class="seg-tag">Konselor Sekolah</span>
+          <span class="seg-tag">Efisiensi Kerja</span>
+          <span class="seg-tag">Dashboard Analitik</span>
+        </div>
+      </div>
+      <div class="seg-card reveal">
+        <div class="seg-icon">🎓</div>
+        <h3>Siswa & Mahasiswa</h3>
+        <p>Pengguna akhir berusia remaja hingga dewasa muda yang membutuhkan ruang aman untuk jujur tentang kondisi mental mereka, tanpa rasa takut akan stigma atau penilaian sosial dari teman sebaya.</p>
+        <div class="seg-tags">
+          <span class="seg-tag">Anonim</span>
+          <span class="seg-tag">Anti-Stigma</span>
+          <span class="seg-tag">Remaja–Dewasa Muda</span>
+        </div>
+      </div>
+      <div class="seg-card reveal">
+        <div class="seg-icon">💡</div>
+        <h3>Sekolah Progresif</h3>
+        <p>Institusi yang ingin menerapkan kebijakan berbasis fakta (Data-Driven Policy), memiliki kepedulian tinggi terhadap well-being siswa, dan mencari solusi digital tanpa kerumitan infrastruktur server mandiri.</p>
+        <div class="seg-tags">
+          <span class="seg-tag">Well-being Fokus</span>
+          <span class="seg-tag">Inovatif</span>
+          <span class="seg-tag">Langganan SaaS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="num">60<span class="unit">%</span></div>
+      <p>Remaja enggan ke ruang BK karena stigma sosial</p>
+    </div>
+    <div class="stat-item reveal">
+      <div class="num">3<span class="unit">x</span></div>
+      <p>Lebih efisien dibanding pencatatan rekam medis manual</p>
+    </div>
+    <div class="stat-item reveal">
+      <div class="num">100<span class="unit">%</span></div>
+      <p>Data siswa terenkripsi end-to-end, privasi terjamin</p>
+    </div>
+    <div class="stat-item reveal">
+      <div class="num">0</div>
+      <p>Instalasi server diperlukan — langsung pakai via cloud</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="kontak">
+  <div class="cta-inner">
+    <div class="badge" style="margin-bottom:1.5rem; display:inline-flex;">✦ Tersedia untuk Institusi Pendidikan</div>
+    <h2>Siap wujudkan <em>sekolah yang peduli</em> kesehatan mental?</h2>
+    <p>Bergabunglah dengan institusi pendidikan yang sudah mempercayakan kesehatan mental siswanya kepada MindSpace Edu.</p>
+
+    <form id="demoForm" style="max-width:480px; margin:0 auto;">
+      <div class="cta-form">
+        <input type="email" id="emailInput" placeholder="Email institusi Anda..." required>
+        <button type="submit" class="btn-primary" id="submitBtn">Minta Demo →</button>
+      </div>
+      <div id="formMsg" style="margin-top:.9rem; font-size:.85rem; display:none;"></div>
+    </form>
+
+    <p class="cta-note">Gratis 30 hari · Tanpa kartu kredit · Setup dalam 1 hari</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MindSpace<span>.</span>Edu</div>
+  <p>© 2025 MindSpace Edu · Revo Fallentino · NIM 22.11.5095 · 23IF01</p>
+  <div class="footer-links">
+    <a href="#fitur">Fitur</a>
+    <a href="#cara-kerja">Cara Kerja</a>
+    <a href="#segmen">Target</a>
+    <a href="#kontak">Kontak</a>
+  </div>
+</footer>
+
+<script>
+  /* scroll reveal */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* demo form — kirim ke Formspree (ganti YOUR_FORM_ID setelah daftar di formspree.io) */
+  const form = document.getElementById('demoForm');
+  const msg  = document.getElementById('formMsg');
+  const btn  = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const email = document.getElementById('emailInput').value.trim();
+    if (!email) return;
+
+    btn.textContent = 'Mengirim...';
+    btn.style.opacity = '.7';
+    btn.disabled = true;
+
+    try {
+      /* Ganti URL di bawah dengan endpoint Formspree kamu setelah daftar */
+      const res = await fetch('https://formspree.io/f/https://formspree.io/f/meedqlgr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email, _subject: 'Demo Request - MindSpace Edu' })
+      });
+
+      if (res.ok) {
+        msg.style.display = 'block';
+        msg.style.color = 'var(--teal-600)';
+        msg.textContent = '✅ Terima kasih! Tim kami akan menghubungi Anda dalam 1×24 jam.';
+        form.reset();
+      } else {
+        throw new Error();
+      }
+    } catch {
+      /* Fallback: buka mailto jika Formspree belum dikonfigurasi */
+      window.location.href = 'mailto:revofallentino@email.com?subject=Demo%20Request%20MindSpace%20Edu&body=Email%20saya%3A%20' + encodeURIComponent(email);
+      msg.style.display = 'block';
+      msg.style.color = 'var(--gray-600)';
+      msg.textContent = 'Membuka email Anda...';
+    } finally {
+      btn.textContent = 'Minta Demo →';
+      btn.style.opacity = '1';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

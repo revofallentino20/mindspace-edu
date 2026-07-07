@@ -6,3 +6,6 @@ cmds = ["composer install --no-dev --optimize-autoloader", "npm install"]
 
 [phases.build]
 cmds = ["npm run build", "php artisan migrate --force"]
+
+[start]
+cmd = "mkdir -p /var/log/nginx && php artisan serve --host=0.0.0.0 --port=8080"

@@ -9,7 +9,14 @@ class ScreeningController extends Controller
 {
     public function index()
     {
-        $screenings = Screening::latest()->paginate(10);
+        $user = auth()->user();
+        
+        if ($user->isSuperAdmin()) {
+            $screenings = Screening::latest()->paginate(10);
+        } else {
+            $screenings = Screening::where('school_id', $user->school_id)->latest()->paginate(10);
+        }
+        
         return view('screenings.index', compact('screenings'));
     }
 
@@ -30,6 +37,7 @@ class ScreeningController extends Controller
 
         $rata = ($validated['skor_stres'] + $validated['skor_cemas'] + $validated['skor_depresi']) / 3;
         $validated['status'] = $rata >= 70 ? 'tinggi' : ($rata >= 40 ? 'sedang' : 'rendah');
+        $validated['school_id'] = auth()->user()->school_id;
 
         Screening::create($validated);
         return redirect()->route('screenings.index')->with('success', 'Data screening berhasil ditambahkan.');
@@ -41,13 +49,20 @@ class ScreeningController extends Controller
         return redirect()->route('screenings.index')->with('success', 'Data berhasil dihapus.');
     }
     public function exportPdf()
-{
-    $screenings = Screening::all();
-    $tinggi = Screening::where('status', 'tinggi')->count();
-    $sedang = Screening::where('status', 'sedang')->count();
-    $rendah = Screening::where('status', 'rendah')->count();
+    {
+        $user = auth()->user();
+        
+        if ($user->isSuperAdmin()) {
+            $screenings = Screening::all();
+        } else {
+            $screenings = Screening::where('school_id', $user->school_id)->get();
+        }
+        
+        $tinggi = $screenings->where('status', 'tinggi')->count();
+        $sedang = $screenings->where('status', 'sedang')->count();
+        $rendah = $screenings->where('status', 'rendah')->count();
 
-    $pdf = \PDF::loadView('screenings.pdf', compact('screenings', 'tinggi', 'sedang', 'rendah'));
-    return $pdf->download('Laporan_Screening_' . now()->format('Y-m-d') . '.pdf');
-}
+        $pdf = \PDF::loadView('screenings.pdf', compact('screenings', 'tinggi', 'sedang', 'rendah'));
+        return $pdf->download('Laporan_Screening_' . now()->format('Y-m-d') . '.pdf');
+    }
 }

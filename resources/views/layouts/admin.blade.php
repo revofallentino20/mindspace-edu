@@ -43,6 +43,9 @@
             <a href="/appointments" onclick="closeSidebar()" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700 transition {{ request()->is('appointments*') ? 'bg-purple-700' : '' }}">
                 <span>📅</span> Appointment
             </a>
+            <a href="/site-content" onclick="closeSidebar()" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700 transition {{ request()->is('site-content*') ? 'bg-purple-700' : '' }}">
+                <span>✏️</span> Edit Landing Page
+            </a>
             <a href="/schools" onclick="closeSidebar()" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700 transition {{ request()->is('schools*') ? 'bg-purple-700' : '' }}">
                 <span>🏫</span> Sekolah
             </a>

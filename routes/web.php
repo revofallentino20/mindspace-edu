@@ -5,7 +5,8 @@ use App\Http\Controllers\ScreeningController;
 use App\Http\Controllers\AppointmentController;
 
 Route::get('/', function () {
-    return file_get_contents(public_path('index.html'));
+    $content = \App\Models\SiteContent::all()->keyBy('key');
+    return view('landing', compact('content'));
 });
 
 // Public screening routes (tanpa login)
@@ -46,6 +47,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('screenings/export/pdf', [ScreeningController::class, 'exportPdf'])->name('screenings.export');
     Route::resource('schools', App\Http\Controllers\SchoolController::class)->middleware('auth');
     Route::resource('appointments', AppointmentController::class);
+    Route::get('site-content', [App\Http\Controllers\SiteContentController::class, 'index'])->name('site-content.index');
+    Route::post('site-content', [App\Http\Controllers\SiteContentController::class, 'update'])->name('site-content.update');
 });
 
 require __DIR__.'/auth.php';

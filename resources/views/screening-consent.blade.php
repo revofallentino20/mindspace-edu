@@ -18,19 +18,6 @@
     </div>
 
     <div class="bg-white rounded-3xl shadow-xl p-8">
-            {{-- Protokol Krisis --}}
-    @if($skor_phq >= 15 || request()->query('phq9') >= 1)
-    <div class="bg-red-600 rounded-2xl p-5 mb-6 text-white">
-        <p class="font-bold text-lg mb-2">🚨 Perhatian Penting</p>
-        <p class="text-sm mb-3">Hasil screeningmu menunjukkan kamu mungkin membutuhkan bantuan segera. Kamu tidak sendirian.</p>
-        <div class="bg-red-700 rounded-xl p-4 space-y-2 text-sm">
-            <p>📞 <strong>Into The Light Indonesia:</strong> 119 ext 8</p>
-            <p>📞 <strong>Yayasan Pulih:</strong> (021) 788-42580</p>
-            <p>🏫 <strong>Segera temui Guru BK</strong> di sekolahmu</p>
-        </div>
-        <p class="text-xs mt-3 text-red-200">Informasi ini telah diteruskan ke sistem BK sekolahmu untuk tindak lanjut.</p>
-    </div>
-    @endif
         <div class="text-center mb-6">
             <div class="text-4xl mb-3">📋</div>
             <h1 class="text-2xl font-bold text-gray-800">Informed Consent</h1>

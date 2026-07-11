@@ -872,7 +872,7 @@
 
     try {
       /* Ganti URL di bawah dengan endpoint Formspree kamu setelah daftar */
-      const res = await fetch('https://formspree.io/f/https://formspree.io/f/meedqlgr', {
+      const res = await fetch('https://formspree.io/f/meedqlgr', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({ email, _subject: 'Demo Request - MindSpace Edu' })

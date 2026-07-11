@@ -76,5 +76,14 @@ class SchoolSeeder extends Seeder
             'role'      => 'admin',
             'school_id' => $school2->id,
         ]);
+
+        $school3 = School::where('kode', 'SMKN1JKT')->first();
+        User::create([
+            'name'      => 'Admin BK SMK Negeri 1 Jakarta',
+            'email'     => 'bk@smkn1jkt.sch.id',
+            'password'  => Hash::make('password123'),
+            'role'      => 'admin',
+            'school_id' => $school3->id,
+        ]);
     }
 }

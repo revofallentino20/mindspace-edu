@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             SchoolSeeder::class,
             ScreeningSeeder::class,
             AppointmentSeeder::class,
+            SiteContentSeeder::class,
         ]);
     }
 }

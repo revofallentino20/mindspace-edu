@@ -9,16 +9,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            SchoolSeeder::class,
             ScreeningSeeder::class,
             AppointmentSeeder::class,
         ]);
-    }
-public function run(): void
-    {
-    $this->call([
-        SchoolSeeder::class,
-        ScreeningSeeder::class,
-        AppointmentSeeder::class,
-    ]);
     }
 }

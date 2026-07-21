@@ -556,6 +556,23 @@
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s, transform .6s; }
   .reveal.visible { opacity: 1; transform: none; }
 </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J1Z1BWWJ1T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-J1Z1BWWJ1T');
+</script>
+
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "xq14yeach0");
+</script>
 </head>
 <body>
 
@@ -569,9 +586,8 @@
     <li><a href="#kontak">Kontak</a></li>
   </ul>
   <div style="display:flex; gap:.75rem; align-items:center;">
-  <a href="/login" class="nav-login">Login Admin</a>
-  <a href="#kontak" class="nav-cta">Mulai Gratis →</a>
-</div>
+  <a href="/login" class="nav-login" onclick="gtag('event','klik_login_admin',{location:'navbar'})">Login Admin</a>
+  <a href="#kontak" class="nav-cta" onclick="gtag('event','klik_mulai_gratis',{location:'navbar'})">Mulai Gratis →</a></div>
 </nav>
 
 <!-- HERO -->
@@ -582,10 +598,9 @@
       <h1>{{ $content['hero_headline']->value ?? 'Wujudkan Kesehatan Mental Siswa untuk Masa Depan yang Lebih Baik' }}</h1>
       <p>{{ $content['hero_subheadline']->value ?? 'MindSpace Edu menjembatani komunikasi antara siswa dan unit BK secara anonim, aman, dan berbasis data.' }}</p>
       <div class="hero-btns">
-        <a href="#kontak" class="btn-primary">Jadwalkan Demo ✦</a>
-        <a href="#fitur" class="btn-secondary">Lihat Fitur →</a>
-        <a href="/screening" class="btn-secondary" style="border-color:var(--teal-400); color:var(--teal-600);">Isi Screening Gratis</a>
-      </div>
+      <a href="#kontak" class="btn-primary" onclick="gtag('event','klik_jadwalkan_demo',{location:'hero'})">Jadwalkan Demo ✦</a>
+      <a href="#fitur" class="btn-secondary" onclick="gtag('event','klik_lihat_fitur',{location:'hero'})">Lihat Fitur →</a>
+      <a href="/screening" class="btn-secondary" style="border-color:var(--teal-400); color:var(--teal-600);" onclick="gtag('event','klik_isi_screening',{location:'hero'})">Isi Screening Gratis</a></div>
     </div>
 
     <!-- floating dashboard -->
@@ -824,8 +839,7 @@
     <form id="demoForm" style="max-width:480px; margin:0 auto;">
       <div class="cta-form">
         <input type="email" id="emailInput" placeholder="Email institusi Anda..." required>
-        <button type="submit" class="btn-primary" id="submitBtn">Minta Demo →</button>
-      </div>
+        <button type="submit" class="btn-primary" id="submitBtn" onclick="gtag('event','submit_form_demo',{location:'cta_section'})">Minta Demo →</button></div>
       <div id="formMsg" style="margin-top:.9rem; font-size:.85rem; display:none;"></div>
     </form>
 
